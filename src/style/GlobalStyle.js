@@ -16,6 +16,11 @@ const GlobalStyle = createGlobalStyle`
       margin: 0 auto;
     }
   }
+
+  a {
+    color: #91a7ff;
+    text-decoration: none;
+  }
 `;
 
 export default GlobalStyle;
