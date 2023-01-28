@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useNavigate, Link } from 'react-router-dom';
 import API from '../api';
 import styled from 'styled-components';
 import Input from '../components/common/Input';
@@ -11,6 +11,7 @@ const Container = styled.main`
   width: 100%;
   height: 100%;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 `;
@@ -28,6 +29,12 @@ const SignUp = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (localStorage.getItem('access_token')) {
+      navigate('/todo', { replace: true });
+    }
+  }, [navigate]);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -68,6 +75,9 @@ const SignUp = () => {
           disabled={!validateEmail(email) || !validatePassword(password)}
         />
       </Form>
+      <div>
+        <Link to="/signin">로그인 하러가기</Link>
+      </div>
     </Container>
   );
 };
