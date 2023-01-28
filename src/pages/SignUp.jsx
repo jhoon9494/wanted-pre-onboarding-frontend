@@ -34,7 +34,6 @@ const SignUp = () => {
     try {
       const res = await API.post('auth/signup', { email, password });
       if (res.status === 201) {
-        localStorage.setItem('access_token', res.data.access_token);
         navigate('/signin', { replace: true });
       }
     } catch (e) {
