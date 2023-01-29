@@ -2,8 +2,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import API from '../api';
-import Button from '../components/common/Button';
-import Input from '../components/common/Input';
+import SubmitTodo from '../components/todo/SubmitTodo';
 
 // Styled-Components
 const Container = styled.main`
@@ -11,19 +10,12 @@ const Container = styled.main`
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
-
-  > form {
-    display: flex;
-    gap: 10px;
-  }
 `;
 
 // Todo Components
 const Todo = () => {
   const [todos, setTodos] = useState([]);
-  const [inputTodo, setInputTodo] = useState('');
   const navigate = useNavigate();
 
   const getTodoData = useCallback(async (token) => {
@@ -39,25 +31,6 @@ const Todo = () => {
     }
   }, []);
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    setInputTodo('');
-    try {
-      const res = await API.post(
-        'todos',
-        { todo: inputTodo },
-        {
-          headers: {
-            Authorization: `Bearer ${localStorage.getItem('access_token')}`,
-          },
-        }
-      );
-      setTodos((prev) => [...prev, res.data]);
-    } catch (e) {
-      console.error(e);
-    }
-  };
-
   useEffect(() => {
     const token = localStorage.getItem('access_token');
 
@@ -70,10 +43,7 @@ const Todo = () => {
 
   return (
     <Container>
-      <form>
-        <Input type="text" testid="new-todo-input" value={inputTodo} onChange={(e) => setInputTodo(e.target.value)} />
-        <Button type="submit" testid="new-todo-add-button" value="추가" onClick={handleSubmit} />
-      </form>
+      <SubmitTodo setTodos={setTodos} />
     </Container>
   );
 };
