@@ -7,13 +7,18 @@ import Button from '../components/common/Button';
 import { validateEmail, validatePassword } from '../utils/validate';
 
 // Styled-Components
-const Container = styled.main`
-  width: 100%;
-  height: 100%;
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: #dde4ff;
+  border-radius: 10px;
+  padding: 40px;
+
+  > h1 {
+    color: #6482f9;
+  }
 `;
 
 const Form = styled.form`
@@ -50,6 +55,7 @@ const SignIn = () => {
 
   return (
     <Container>
+      <h1>My Todolist</h1>
       <Form>
         <Input
           type="text"

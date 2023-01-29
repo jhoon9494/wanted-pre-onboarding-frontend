@@ -13,10 +13,19 @@ const Container = styled.button`
 
   :disabled {
     cursor: not-allowed;
-    background-color: #b5b5b5;
+    background-color: #c0ccfe;
+  }
+
+  :hover {
+    background-color: #5978f5;
+
+    :disabled {
+      background-color: #c0ccfe;
+    }
   }
 `;
 
+// Button Components
 const Button = ({ testid, onClick, value, type, disabled }) => {
   return (
     <Container data-testid={testid} onClick={onClick} type={type} disabled={disabled}>
