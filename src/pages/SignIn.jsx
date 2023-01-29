@@ -40,10 +40,8 @@ const SignIn = () => {
     e.preventDefault();
     try {
       const res = await API.post('auth/signin', { email, password });
-      if (res.status === 200) {
-        localStorage.setItem('access_token', res.data.access_token);
-        navigate('/todo', { replace: true });
-      }
+      localStorage.setItem('access_token', res.data.access_token);
+      navigate('/todo', { replace: true });
     } catch (e) {
       if (e.response.status === 401) alert('비밀번호가 다릅니다. 다시 확인해주세요');
       else if (e.response.status === 404) alert(e.response.data.message);

@@ -39,10 +39,8 @@ const SignUp = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await API.post('auth/signup', { email, password });
-      if (res.status === 201) {
-        navigate('/signin', { replace: true });
-      }
+      await API.post('auth/signup', { email, password });
+      navigate('/signin', { replace: true });
     } catch (e) {
       alert(e.response.data.message);
     }
