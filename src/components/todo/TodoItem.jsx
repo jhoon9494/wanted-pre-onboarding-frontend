@@ -4,6 +4,7 @@ import API from '../../api';
 
 // Styled-Components
 const List = styled.li`
+  width: 100%;
   display: flex;
   align-items: center;
   padding: 4px 0;
@@ -13,15 +14,74 @@ const List = styled.li`
     flex: 1 1 0;
     display: flex;
     align-items: center;
+  }
+`;
 
-    > input:first-child {
-      margin-right: 10px;
-    }
+const Todo = styled.span`
+  color: #656565;
+`;
+
+const CheckBox = styled.input`
+  margin-right: 10px;
+
+  &[type='checkbox'] {
+    position: relative;
+    cursor: pointer;
   }
 
-  > button {
-    flex-basis: 40px;
-    margin: 0 4px;
+  &[type='checkbox']:before {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: -3px;
+    left: -3px;
+    border: 1px solid #748ffc;
+    border-radius: 3px;
+    background-color: #dde4ff;
+  }
+
+  &[type='checkbox']:checked:after {
+    content: '';
+    display: block;
+    width: 6px;
+    height: 10px;
+    border: solid #315afb;
+    border-width: 0 2px 2px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+    position: absolute;
+    top: 0px;
+    left: 3px;
+  }
+`;
+
+const Button = styled.button`
+  flex-basis: 40px;
+  margin: 0 4px;
+  padding: 4px 6px;
+  border: 1px solid ${(props) => props.color};
+  background-color: transparent;
+  border-radius: 3px;
+  color: ${(props) => props.color};
+
+  :hover {
+    background-color: ${(props) => props.color};
+    color: white;
+    transition: all 0.1s ease-in;
+  }
+`;
+
+const ModifyInput = styled.input`
+  border: none;
+  border-bottom: 1px solid #748ffc;
+  background-color: transparent;
+  color: #656565;
+
+  &::placeholder {
+    color: #a6a6a6;
   }
 `;
 
@@ -100,32 +160,34 @@ const TodoItem = ({ todo, setDeleteId }) => {
   return (
     <List>
       <label>
-        <input type="checkbox" checked={isCompleted} onChange={handleCheck} />
+        <CheckBox type="checkbox" checked={isCompleted} onChange={handleCheck} />
         {modify ? (
-          <input
+          <ModifyInput
             type="text"
             data-testid="modify-input"
             value={modifyInput}
             onChange={(e) => setModifyInput(e.target.value)}
           />
         ) : (
-          <span>{defaultInput}</span>
+          <Todo>{defaultInput}</Todo>
         )}
       </label>
-      <button
+      <Button
+        color="#748ffc"
         type="button"
         data-testid={modify ? 'submit-button' : 'modify-button'}
         onClick={modify ? handleSubmit : () => setModify(true)}
       >
         {modify ? '제출' : '수정'}
-      </button>
-      <button
+      </Button>
+      <Button
+        color="#e03131"
         type="button"
         data-testid={modify ? 'cancel-button' : 'delete-button'}
         onClick={modify ? cancelModify : handleDelete}
       >
         {modify ? '취소' : '삭제'}
-      </button>
+      </Button>
     </List>
   );
 };

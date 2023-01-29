@@ -7,7 +7,7 @@ import Input from '../common/Input';
 // Styled-Components
 const Form = styled.form`
   display: flex;
-  margin-top: 150px;
+  margin: 10px;
   gap: 10px;
 
   > label {
