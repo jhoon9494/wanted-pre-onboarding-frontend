@@ -55,7 +55,7 @@ const Todo = () => {
       <SubmitTodo setTodos={setTodos} />
       <TodoList>
         {todos.map((todo) => (
-          <TodoItem todo={todo} />
+          <TodoItem todo={todo} key={todo.id} />
         ))}
       </TodoList>
     </Container>
