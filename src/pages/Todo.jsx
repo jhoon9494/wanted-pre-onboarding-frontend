@@ -15,7 +15,7 @@ const Container = styled.main`
 `;
 
 const TodoList = styled.ul`
-  width: 300px;
+  min-width: 300px;
   display: flex;
   flex-direction: column;
   list-style: none;
@@ -25,6 +25,7 @@ const TodoList = styled.ul`
 // Todo Components
 const Todo = () => {
   const [todos, setTodos] = useState([]);
+  const [deleteId, setDeleteId] = useState(null);
   const navigate = useNavigate();
 
   const getTodoData = useCallback(async (token) => {
@@ -48,14 +49,14 @@ const Todo = () => {
     }
 
     getTodoData(token);
-  }, [navigate, getTodoData]);
+  }, [navigate, getTodoData, deleteId]);
 
   return (
     <Container>
       <SubmitTodo setTodos={setTodos} />
       <TodoList>
         {todos.map((todo) => (
-          <TodoItem todo={todo} key={todo.id} />
+          <TodoItem todo={todo} key={todo.id} setDeleteId={setDeleteId} />
         ))}
       </TodoList>
     </Container>
