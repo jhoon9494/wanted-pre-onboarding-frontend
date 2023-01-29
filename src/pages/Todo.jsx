@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import API from '../api';
 import SubmitTodo from '../components/todo/SubmitTodo';
+import TodoItem from '../components/todo/TodoItem';
 
 // Styled-Components
 const Container = styled.main`
@@ -11,6 +12,14 @@ const Container = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
+`;
+
+const TodoList = styled.ul`
+  width: 300px;
+  display: flex;
+  flex-direction: column;
+  list-style: none;
+  padding: 0;
 `;
 
 // Todo Components
@@ -44,6 +53,11 @@ const Todo = () => {
   return (
     <Container>
       <SubmitTodo setTodos={setTodos} />
+      <TodoList>
+        {todos.map((todo) => (
+          <TodoItem todo={todo} />
+        ))}
+      </TodoList>
     </Container>
   );
 };
