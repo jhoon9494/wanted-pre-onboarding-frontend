@@ -18,8 +18,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "predeploy": "npm run build",
+    "deploy": "cp build/index.html build/404.html && gh-pages -d build"
   },
+  "homepage": "https://jhoon9494.github.io/wanted-pre-onboarding-frontend/",
   "eslintConfig": {
     "extends": [
       "react-app",
@@ -37,5 +40,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "gh-pages": "^5.0.0"
   }
 }
