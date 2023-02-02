@@ -88,8 +88,7 @@ const ModifyInput = styled.input`
 // TodoItem Components
 const TodoItem = ({ todo, setDeleteId }) => {
   const [isCompleted, setIsCompleted] = useState(todo.isCompleted);
-  const [defaultInput, setDefaultInput] = useState(todo.todo);
-  const [modifyInput, setModifyInput] = useState(todo.todo);
+  const [todoInput, setTodoInput] = useState(todo.todo);
   const [modify, setModify] = useState(false);
 
   const token = localStorage.getItem('access_token');
@@ -135,7 +134,7 @@ const TodoItem = ({ todo, setDeleteId }) => {
       const res = await API.put(
         `todos/${todo.id}`,
         {
-          todo: modifyInput,
+          todo: todoInput,
           isCompleted,
         },
         {
@@ -144,7 +143,7 @@ const TodoItem = ({ todo, setDeleteId }) => {
           },
         }
       );
-      setDefaultInput(res.data.todo);
+      setTodoInput(res.data.todo);
       setModify(false);
     } catch (e) {
       console.error(e);
@@ -153,7 +152,7 @@ const TodoItem = ({ todo, setDeleteId }) => {
 
   // 투두리스트 수정 취소
   const cancelModify = () => {
-    setModifyInput(todo.todo);
+    setTodoInput(todo.todo);
     setModify(false);
   };
 
@@ -165,11 +164,11 @@ const TodoItem = ({ todo, setDeleteId }) => {
           <ModifyInput
             type="text"
             data-testid="modify-input"
-            value={modifyInput}
-            onChange={(e) => setModifyInput(e.target.value)}
+            value={todoInput}
+            onChange={(e) => setTodoInput(e.target.value)}
           />
         ) : (
-          <Todo>{defaultInput}</Todo>
+          <Todo>{todoInput}</Todo>
         )}
       </label>
       <Button

@@ -70,7 +70,13 @@ const Todo = () => {
     }
 
     getTodoData(token);
-  }, [navigate, getTodoData, deleteId]);
+  }, [navigate, getTodoData]);
+
+  useEffect(() => {
+    if (deleteId) {
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== deleteId));
+    }
+  }, [deleteId]);
 
   const handleLogout = () => {
     localStorage.removeItem('access_token');
